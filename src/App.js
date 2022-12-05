@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import MakeFoodEntry from "./components/makefoodentry";
+import SearchExercise from "./components/searchexercise";
+import SearchFoodOptions from "./components/searchfoods";
+import DayLog from "./components/daylog";
+import Header from "./components/header/header";
+import Content from "./content/content";
+
+import { appIdAndKey } from "./apidata/apidata";
 
 function App() {
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+    <Content />
+      {/* <MakeFoodEntry credentials={appIdAndKey} />
+      <SearchFoodOptions credentials={appIdAndKey} />
+
+      <SearchExercise credentials={appIdAndKey} />
+      
+      <DayLog credentials={appIdAndKey}/> */}
     </div>
   );
 }
