@@ -4,6 +4,8 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './App';
 import { UserProvider } from './contexts/userInformation.context';
+import { DateProvider } from './contexts/date.context';
+import { LoggedDataProvider } from './contexts/loggeddata.context';
 
 import './index.css';
 
@@ -11,7 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserProvider>
-      <App />
+      <DateProvider>
+        <LoggedDataProvider>
+          <App />
+        </LoggedDataProvider>
+      </DateProvider>
     </UserProvider>
   </React.StrictMode>
 );
