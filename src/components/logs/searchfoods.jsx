@@ -3,7 +3,9 @@ import uniqid from "uniqid";
 
 import { getFoodAutoFillOptions } from "./searchfunctions/foodsearch";
 
-import { SearchInput, SearchButton, SearchLabel } from "./input.styles";
+import { Label } from "./input.styles";
+import { Input } from "../input/input.styles";
+import Button, {BUTTON_TYPE_CLASSES} from "../button/button";
 
 const defaultSearchQuery = "";
 
@@ -33,15 +35,15 @@ const SearchFoodOptions = () => {
 
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
-      <SearchLabel htmlFor="search-foods">Looking for something specific?</SearchLabel>
-      <SearchInput
+      <Label htmlFor="search-foods">Looking for something specific?</Label>
+      <Input
         type="text"
         name="search-foods"
         onChange={handleChange}
         placeholder="2 red bell peppers, 3 eggs"
         value={searchQuery}
       />
-      <SearchButton type="submit">Search</SearchButton>
+      <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">Search</Button>
       
     </form>
   );

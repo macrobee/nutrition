@@ -1,7 +1,11 @@
 import { useState, useContext } from "react";
 
 import { getNutrientData } from "./searchfunctions/fooditemsearch";
-import { SearchLabel, SearchInput, SearchButton } from "./input.styles";
+import { getFoodNutritionDataFromSearchResults } from "./searchfunctions/parsefooddata";
+
+import { Label } from "./input.styles";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
+import { Input } from "../input/input.styles";
 
 import { SearchResultsContext} from "../../contexts/searchresults.context";
 
@@ -14,9 +18,10 @@ const SearchFoodNutrition = () => {
   const retrieveNutrientData = async () => {
     const results = await getNutrientData(searchQuery);
     await setSearchType(searchTypes.foodNutrition);
-
-    await setSearchResults(results);
+    const parsedResults = getFoodNutritionDataFromSearchResults(results);
+    await setSearchResults(parsedResults);
   };
+  
 
   const handleChange = (e) => {
     const queryString = e.target.value;
@@ -32,15 +37,15 @@ const SearchFoodNutrition = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <SearchLabel htmlFor="search-food">Search foods</SearchLabel>
-      <SearchInput
+      <Label htmlFor="search-food">Search foods</Label>
+      <Input
         type="text"
         name="search-food"
         onChange={handleChange}
         placeholder="2 red bell peppers, 3 eggs"
         value={searchQuery}
       />
-      <SearchButton type="submit">Search</SearchButton>
+      <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">Search</Button>
     </form>
   );
 };
