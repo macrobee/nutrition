@@ -24,7 +24,6 @@ const LogsContainer = () => {
   };
   return (
     <div className="container">
-      all the day logs go here
       {console.log(entryList)}
       <Button buttonType={BUTTON_TYPE_CLASSES.base} onClick={handleButtonClick}>
         Create new log

@@ -12,6 +12,7 @@ import SavedResultsDisplay from "./savedresultsdisplay";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
 import { Input } from "../input/input.styles";
+import { ClickableP } from "../styles/clickable.styles";
 
 const DayLog = (props) => {
   const { id, date } = props;
@@ -43,9 +44,10 @@ const DayLog = (props) => {
         value={entryDate}
         onChange={handleDateChange}
       />
-      <p onClick={handleExpandSearchClick}>
-        {searchBarsVisible ? "Close" : "Open"} search options
-      </p>
+      <ClickableP onClick={handleExpandSearchClick}>
+        {searchBarsVisible ? "Close" : "Open "} search options{" "}
+        {searchBarsVisible ? "  - " : " +"}
+      </ClickableP>
 
       {searchBarsVisible && (
         <div>

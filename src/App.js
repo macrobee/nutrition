@@ -1,14 +1,23 @@
+import { useContext, useEffect } from "react";
+
 import "./App.css";
-// import MakeFoodEntry from "./components/makefoodentry";
-// import SearchExercise from "./components/searchexercise";
-// import SearchFoodOptions from "./components/searchfoods";
-// import DayLog from "./components/daylog";
+
 import Header from "./components/header/header";
 import Content from "./content/content";
 
-// import { appIdAndKey } from "./apidata/apidata";
+import { LoggedDataContext } from "./contexts/loggeddata.context";
 
 function App() {
+  const { saveToLocalStorage, entryList } = useContext(LoggedDataContext);
+
+  useEffect(() => {
+    const updateLocalStorage = async () => {
+      await saveToLocalStorage();
+      console.log(entryList);
+    };
+    updateLocalStorage();
+  }, [entryList]);
+
   return (
     <div className="App">
       <Header />

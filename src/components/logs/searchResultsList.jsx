@@ -4,7 +4,7 @@ import uniqid from "uniqid";
 import { LoggedDataContext } from "../../contexts/loggeddata.context";
 import { SearchResultsContext } from "../../contexts/searchresults.context";
 
-import Button, {BUTTON_TYPE_CLASSES} from '../button/button';
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
 
 const SearchResultsList = (props) => {
   const { searchResults, searchType } = useContext(SearchResultsContext);
@@ -29,7 +29,6 @@ const SearchResultsList = (props) => {
     //create array containing old and new data
 
     addDataToEntry(currentEntry, searchType, newData);
-
   };
 
   if (searchResults.length > 0) {
@@ -62,13 +61,14 @@ const SearchResultsList = (props) => {
           return (
             <li key={uniqid()}>
               {quantity} {title} ({weight}g), {calories} calories
-              <button
+              <Button
+                buttonType={BUTTON_TYPE_CLASSES.base}
                 title={title}
                 calories={calories}
                 onClick={handleAddButtonClick}
               >
                 Add
-              </button>
+              </Button>
             </li>
           );
         });

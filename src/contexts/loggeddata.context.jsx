@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const editEntry = (currentEntries, entryToEdit) => {
   const newEntryList = currentEntries.map((entry) =>
@@ -8,7 +8,7 @@ const editEntry = (currentEntries, entryToEdit) => {
 };
 
 const createNewEntry = (currentEntries, newEntry) => {
-  const newEntryList = [...currentEntries, newEntry];
+  const newEntryList = [newEntry, ...currentEntries];
   return newEntryList;
 };
 
@@ -29,7 +29,8 @@ const addEntryData = (currentEntries, entryToModify, fieldToEdit, newData) => {
 
 const defaultEntryList = [
   { id: 1, date: "2022-12-08", exercise: [], food: [] },
-  { id: 2, date: "2022-12-07", exercise: [], food: [] },
+  { id: 2, date: "2022-12-08", exercise: [], food: [] },
+  { id: 3, date: "2022-12-07", exercise: [], food: [] },
 ];
 
 export const LoggedDataContext = createContext({
@@ -39,6 +40,8 @@ export const LoggedDataContext = createContext({
   addNewEntryToList: () => null,
   deleteExistingEntry: () => null,
   addDataToEntry: () => null,
+  saveToLocalStorage: () => null,
+  getDataFromLocalStorage: () => null,
 });
 // food/exercise entry looks like:
 // {id: 2354234,
@@ -49,8 +52,6 @@ export const LoggedDataContext = createContext({
 // }}
 
 export const LoggedDataProvider = ({ children }) => {
-  const [entryList, setEntryList] = useState(defaultEntryList);
-
   const editExistingEntry = (editedEntry) => {
     setEntryList(editEntry(entryList, editedEntry));
   };
@@ -63,9 +64,21 @@ export const LoggedDataProvider = ({ children }) => {
     setEntryList(deleteEntry(entryList, entryToDelete));
   };
 
-  const addDataToEntry = (entryToModify, fieldToEdit, newData) =>{
+  const addDataToEntry = (entryToModify, fieldToEdit, newData) => {
     setEntryList(addEntryData(entryList, entryToModify, fieldToEdit, newData));
-  }
+  };
+
+  const saveToLocalStorage = () => {
+    localStorage.clear();
+    window.localStorage.setItem("data", JSON.stringify(entryList));
+  };
+
+  const getDataFromLocalStorage = () => {
+    const savedData = JSON.parse(localStorage.getItem("data"));
+    return savedData;
+  };
+  const [entryList, setEntryList] = useState(getDataFromLocalStorage);
+
   const value = {
     entryList,
     setEntryList,
@@ -73,6 +86,8 @@ export const LoggedDataProvider = ({ children }) => {
     addNewEntryToList,
     deleteExistingEntry,
     addDataToEntry,
+    saveToLocalStorage,
+    getDataFromLocalStorage,
   };
 
   return (
