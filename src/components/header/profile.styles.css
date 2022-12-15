@@ -1,0 +1,42 @@
+.profile {
+  position: absolute;
+  top: 150px;
+  right: 60px;
+  background-color: #0d0e14;
+  padding: 20px;
+  border: 1px solid rgb(145, 238, 153);
+  width: clamp(200px, 40%, 500px);
+}
+
+.icon {
+  transition: 1s;
+  transition-timing-function: ease-in-out;
+  cursor: pointer;
+}
+.icon:hover {
+  transform: scale(1.1);
+}
+.macro-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.macro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  width: clamp(80px, 100px, 160px);
+}
+input[type="range"]{
+    width: 80px;
+    color:rgb(145, 238, 153);
+
+}
+input[type="range"]::-webkit-slider-thumb{
+    color:rgb(145, 238, 153);
+}
+
+input[type="range"]::-webkit-slider-runnable-track{
+    color: rgb(145, 238, 153);
+}

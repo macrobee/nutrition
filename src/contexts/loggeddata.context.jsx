@@ -8,7 +8,12 @@ const editEntry = (currentEntries, entryToEdit) => {
 };
 
 const createNewEntry = (currentEntries, newEntry) => {
-  const newEntryList = [newEntry, ...currentEntries];
+  let newEntryList;
+  if (currentEntries.length) {
+    newEntryList = [newEntry, ...currentEntries];
+  } else {
+    newEntryList = [newEntry];
+  }
   return newEntryList;
 };
 
@@ -77,7 +82,7 @@ export const LoggedDataProvider = ({ children }) => {
     const savedData = JSON.parse(localStorage.getItem("data"));
     return savedData;
   };
-  const [entryList, setEntryList] = useState(getDataFromLocalStorage);
+  const [entryList, setEntryList] = useState({});
 
   const value = {
     entryList,

@@ -28,13 +28,13 @@ const LogsContainer = () => {
       <Button buttonType={BUTTON_TYPE_CLASSES.base} onClick={handleButtonClick}>
         Create new log
       </Button>
-      {entryList.map((entry) => {
+      {entryList.length ? entryList.map((entry) => {
         return (
           <SearchResultsProvider key={entry.id}>
             <DayLog key={entry.id} id={entry.id} date={entry.date} />
           </SearchResultsProvider>
         );
-      })}
+      }) : null}
     </div>
   );
 };

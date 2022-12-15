@@ -8,7 +8,12 @@ import Content from "./content/content";
 import { LoggedDataContext } from "./contexts/loggeddata.context";
 
 function App() {
-  const { saveToLocalStorage, entryList } = useContext(LoggedDataContext);
+  const {
+    saveToLocalStorage,
+    entryList,
+    getDataFromLocalStorage,
+    setEntryList,
+  } = useContext(LoggedDataContext);
 
   useEffect(() => {
     const updateLocalStorage = async () => {
@@ -17,6 +22,14 @@ function App() {
     };
     updateLocalStorage();
   }, [entryList]);
+
+  useEffect(() => {
+    const items = getDataFromLocalStorage();
+    console.log(items);
+    if (items) {
+      setEntryList(items);
+    }
+  }, []);
 
   return (
     <div className="App">

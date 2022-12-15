@@ -1,0 +1,15 @@
+.day-totals{
+    display: grid;
+    grid-template-areas: "heading heading"
+    "calories macros";
+}
+.totals-heading{
+    display: flex;
+    grid-area: heading;
+}
+.calories{
+
+}
+.macros{
+    
+}
