@@ -5,7 +5,6 @@ import { SearchResultsContext } from "../../contexts/searchresults.context";
 import { LoggedDataContext } from "../../contexts/loggeddata.context";
 
 import SearchExercise from "./searchexercise";
-import SearchFoodOptions from "./searchfoods";
 import SearchResultsList from "./searchResultsList";
 import SearchFoodNutrition from "./makefoodentry";
 import SavedResultsDisplay from "./savedresultsdisplay";
@@ -64,10 +63,10 @@ const DayLog = (props) => {
   };
 
   return (
-    <div>
+    <div className="daylog">
       <div className="day-totals">
         <div className="totals-heading">
-          <p>Totals for </p>
+          <h3>Totals for </h3>
           <Input
             type="date"
             name="entrydate"
@@ -77,12 +76,12 @@ const DayLog = (props) => {
           />
         </div>
         <div className="calories">
-          <p>Calories </p>
+          <h4>Calories </h4>
           <p>Out: {totalCalBurn} cal</p>
           <p>In: {totalCalIntake} cal</p>
         </div>
         <div className="macros">
-          <p>Macros</p>
+          <h4>Macros</h4>
           <p>Protein: {totalProteinIntake}g </p>
           <p>Fats: {totalFatIntake}g </p>
           <p>Carbohydrates: {totalCarbIntake}g </p>
@@ -94,7 +93,7 @@ const DayLog = (props) => {
       </ClickableP>
 
       {searchBarsVisible && (
-        <div>
+        <div className="search-container">
           <SearchExercise />
           <SearchFoodNutrition />
           {/* <SearchFoodOptions /> */}
@@ -107,10 +106,20 @@ const DayLog = (props) => {
         </div>
       )}
 
-      <SavedResultsDisplay title="Food intake" searchType="food" logId={id} />
-      <SavedResultsDisplay title="Exercise" searchType="exercise" logId={id} />
+      <div className="results-display">
+        <SavedResultsDisplay title="Food intake" searchType="food" logId={id} />
+        <SavedResultsDisplay
+          title="Exercise"
+          searchType="exercise"
+          logId={id}
+        />
+      </div>
 
-      <Button buttonType={BUTTON_TYPE_CLASSES.delete} onClick={handleDelete}>
+      <Button
+        buttonType={BUTTON_TYPE_CLASSES.delete}
+        onClick={handleDelete}
+        id="delete-record-button"
+      >
         Delete this record
       </Button>
     </div>

@@ -6,6 +6,7 @@ import { getExerciseDataFromSearchResults } from "./searchfunctions/parseexercis
 import { Label } from "./input.styles";
 import Button, {BUTTON_TYPE_CLASSES} from "../button/button";
 import { Input } from "../input/input.styles";
+import './searchexercise.styles.css';
 
 
 import { SearchResultsContext } from "../../contexts/searchresults.context";
@@ -43,16 +44,18 @@ const SearchExercise = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Label htmlFor="search-exercise">Search Exercise</Label>
-      <Input
-        type="text"
-        name="search-exercise"
-        onChange={handleChange}
-        placeholder="run 42km"
-        value={searchQuery}
-      />
-      <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">Search</Button>
+    <form onSubmit={handleSubmit} className="search-form">
+      <Label htmlFor="search-exercise">Search exercise</Label>
+      <div className="input-and-button">
+        <Input
+          type="text"
+          name="search-exercise"
+          onChange={handleChange}
+          placeholder="run 42km"
+          value={searchQuery}
+        />
+        <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">Search</Button>
+      </div>
     </form>
   );
 };

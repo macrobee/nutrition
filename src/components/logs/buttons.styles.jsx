@@ -5,6 +5,7 @@ export const BaseButton = styled.button`
   border: 1px solid #91ee99;
   color: #91ee99;
   padding: 1px 20px;
+  font-family: 'Roboto Mono', monospace;
   :hover {
     background-color: #91ee99;
     color: #000;
@@ -22,6 +23,7 @@ color: #5ca4f2;
     background-color: #6088ff;
 
   }
+  
 `
 
 export const DeleteButton = styled(BaseButton)`

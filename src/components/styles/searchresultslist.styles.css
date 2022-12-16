@@ -1,0 +1,21 @@
+ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 5px;
+}
+li{
+    list-style-type:circle;
+    display: flex;
+    /* gap: 20px; */
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+li span{
+    position: absolute;
+    left: -20px;
+}

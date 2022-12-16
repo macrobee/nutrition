@@ -18,14 +18,14 @@ function App() {
   useEffect(() => {
     const updateLocalStorage = async () => {
       await saveToLocalStorage();
-      console.log(entryList);
+      // console.log(entryList);
     };
     updateLocalStorage();
   }, [entryList]);
 
   useEffect(() => {
     const items = getDataFromLocalStorage();
-    console.log(items);
+    // console.log(items);
     if (items) {
       setEntryList(items);
     }

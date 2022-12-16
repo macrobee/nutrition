@@ -9,9 +9,9 @@ const Header = () => {
   const { user, profileIsOpen, setProfileIsOpen } = useContext(UserContext);
   const { personName, photoUrl } = user;
 
-  useEffect(() => {
-    console.log(profileIsOpen);
-  }, [profileIsOpen])
+  // useEffect(() => {
+  //   console.log(profileIsOpen);
+  // }, [profileIsOpen])
 
   const toggleProfile = () => {
     setProfileIsOpen(!profileIsOpen);

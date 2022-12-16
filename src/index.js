@@ -6,6 +6,7 @@ import App from './App';
 import { UserProvider } from './contexts/userInformation.context';
 import { DateProvider } from './contexts/date.context';
 import { LoggedDataProvider } from './contexts/loggeddata.context';
+import { ActiveLogProvider } from './contexts/activelog.context';
 
 import './index.css';
 
@@ -15,7 +16,9 @@ root.render(
     <UserProvider>
       <DateProvider>
         <LoggedDataProvider>
-          <App />
+          <ActiveLogProvider>
+            <App />
+          </ActiveLogProvider>
         </LoggedDataProvider>
       </DateProvider>
     </UserProvider>

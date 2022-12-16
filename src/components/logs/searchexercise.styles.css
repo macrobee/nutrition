@@ -1,0 +1,17 @@
+.search-form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.input-and-button{
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    /* gap: 5px; */
+    align-items: center;
+}
+
+input::placeholder{
+    text-align: center;
+}

@@ -1,0 +1,9 @@
+
+input[type="date"]{
+    height: 1rem;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

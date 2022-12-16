@@ -1,3 +1,5 @@
 .main-content{
     display: flex;
+    gap: 40px;
+    padding: 20px 40px;
 }

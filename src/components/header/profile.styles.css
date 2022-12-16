@@ -1,6 +1,7 @@
 .profile {
   position: absolute;
-  top: 150px;
+  z-index: 3;
+  top: 100px;
   right: 60px;
   background-color: #0d0e14;
   padding: 20px;
@@ -26,7 +27,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 20px;
-  width: clamp(80px, 100px, 160px);
+  width: clamp(100px, 30%, 160px);
 }
 input[type="range"]{
     width: 80px;
@@ -39,4 +40,12 @@ input[type="range"]::-webkit-slider-thumb{
 
 input[type="range"]::-webkit-slider-runnable-track{
     color: rgb(145, 238, 153);
+}
+select[type="text"]{
+  background-color: #0d0e14;
+  color: rgb(145, 238, 153);
+  border: 1px solid rgb(145, 238, 153);
+}
+select[type="text"]:hover{
+  background-color:rgba(145, 238, 153, 0.2)
 }

@@ -1,15 +1,27 @@
+.daylog{
+    border: 1px solid var(--main-color);
+    padding: 20px;
+}
 .day-totals{
     display: grid;
     grid-template-areas: "heading heading"
     "calories macros";
+    border-bottom: 1px solid var(--main-color);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 .totals-heading{
     display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: baseline;
     grid-area: heading;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid var(--main-color);
 }
-.calories{
-
+.calories, .macros{
+    padding-top:10px;
 }
-.macros{
-    
+.search-container, .results-display{
+    border-bottom: 1px solid var(--main-color);
 }

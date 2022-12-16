@@ -5,6 +5,7 @@ import { LoggedDataContext } from "../../contexts/loggeddata.context";
 import { SearchResultsContext } from "../../contexts/searchresults.context";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
+import "../styles/searchresultslist.styles.css";
 
 const SearchResultsList = (props) => {
   const { searchResults, searchType } = useContext(SearchResultsContext);
@@ -40,10 +41,11 @@ const SearchResultsList = (props) => {
           const { title, quantity, calories } = result;
           return (
             <li key={uniqid()}>
+              <span>&#x2022;</span>
               {Math.round(quantity)} minutes {title}, {Math.round(calories)}{" "}
               calories
               <Button
-                buttonType={BUTTON_TYPE_CLASSES.base}
+                buttonType={BUTTON_TYPE_CLASSES.add}
                 title={title}
                 calories={calories}
                 onClick={handleAddButtonClick}
@@ -60,9 +62,10 @@ const SearchResultsList = (props) => {
           const { title, quantity, weight, calories } = result;
           return (
             <li key={uniqid()}>
+              <span>&#x2022;</span>
               {quantity} {title} ({weight}g), {calories} calories
               <Button
-                buttonType={BUTTON_TYPE_CLASSES.base}
+                buttonType={BUTTON_TYPE_CLASSES.add}
                 title={title}
                 calories={calories}
                 onClick={handleAddButtonClick}

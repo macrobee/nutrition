@@ -36,16 +36,18 @@ const SearchFoodNutrition = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="search-form">
       <Label htmlFor="search-food">Search foods</Label>
-      <Input
-        type="text"
-        name="search-food"
-        onChange={handleChange}
-        placeholder="2 red bell peppers, 3 eggs"
-        value={searchQuery}
-      />
-      <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">Search</Button>
+      <div className="input-and-button">
+        <Input
+          type="text"
+          name="search-food"
+          onChange={handleChange}
+          placeholder="2 red bell peppers, 3 eggs"
+          value={searchQuery}
+        />
+        <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">Search</Button>
+      </div>
     </form>
   );
 };

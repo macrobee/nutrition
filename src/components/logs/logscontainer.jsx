@@ -4,14 +4,19 @@ import uniqid from "uniqid";
 import { SearchResultsProvider } from "../../contexts/searchresults.context";
 import { LoggedDataContext } from "../../contexts/loggeddata.context";
 import { DateContext } from "../../contexts/date.context";
+import {ActiveLogContext} from "../../contexts/activelog.context"
+
 
 import DayLog from "./daylog";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
+import './logscontainer.styles.css';
 
 const LogsContainer = () => {
   const { entryList, addNewEntryToList } = useContext(LoggedDataContext);
   const { currentDateStr } = useContext(DateContext);
+  const { activeLog, setActiveLog} = useContext(ActiveLogContext);
+
 
   const handleButtonClick = () => {
     const newEntry = {
@@ -24,8 +29,7 @@ const LogsContainer = () => {
   };
   return (
     <div className="container">
-      {console.log(entryList)}
-      <Button buttonType={BUTTON_TYPE_CLASSES.base} onClick={handleButtonClick}>
+      <Button buttonType={BUTTON_TYPE_CLASSES.add} onClick={handleButtonClick} id="new-log-button">
         Create new log
       </Button>
       {entryList.length ? entryList.map((entry) => {

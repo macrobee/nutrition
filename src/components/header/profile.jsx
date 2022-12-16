@@ -30,12 +30,15 @@ const Profile = () => {
 
   useEffect(() => {
     setProteinPercent(100 - inputFields.carbs - inputFields.fats);
+    if (proteinPercent != inputFields.protein){
+      setInputFields({...inputFields, protein: proteinPercent});
+    }
   }, [inputFields]);
 
   const handleChange = (e) => {
     console.log(inputFields);
     const { name, value } = e.target;
-    setInputFields({ ...inputFields, [name]: value });
+    setInputFields({ ...inputFields, [name]: value,  });
   };
 
   const handleSubmit = (e) => {
