@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import uniqid from "uniqid";
+import { ActiveLogContext } from "../../contexts/activelog.context";
 
 import { LoggedDataContext } from "../../contexts/loggeddata.context";
 import { SearchResultsContext } from "../../contexts/searchresults.context";
@@ -9,12 +10,24 @@ import "../styles/searchresultslist.styles.css";
 
 const SearchResultsList = (props) => {
   const { searchResults, searchType } = useContext(SearchResultsContext);
-  const { entryList, editExistingEntry, addDataToEntry } =
-    useContext(LoggedDataContext);
+  const { entryList, editExistingEntry } =  useContext(LoggedDataContext);
+  const {setActiveLog, activeLog, getLogData} = useContext(ActiveLogContext);
 
   const { logId } = props;
+  const currentEntry = getLogData(logId, entryList);
+
   let optionsListItems = null;
 
+  const updateEntry = async (fieldToUpdate, newData) => {
+    const editedEntry = {
+      ...activeLog,
+      [fieldToUpdate]: newData,
+    }
+    await editExistingEntry(editedEntry);
+    // const updatedCurrentEntry = entryList.find((entry) => entry.id === logId);
+    await setActiveLog(editedEntry);
+    console.log(activeLog)
+  }
   const handleAddButtonClick = (e) => {
     const title = e.currentTarget.getAttribute("title"); //name of thing to add
 
@@ -23,13 +36,10 @@ const SearchResultsList = (props) => {
     );
     // get data from search (newData)
 
-    const currentEntry = entryList.find((entry) => entry.id === logId);
-    // get current entry in entryList (entryToModify)
-
-    const newData = [...currentEntry[searchType], searchResultData];
+    const newData = [...activeLog[searchType], searchResultData];
     //create array containing old and new data
 
-    addDataToEntry(currentEntry, searchType, newData);
+    updateEntry(searchType, newData);
   };
 
   if (searchResults.length > 0) {
@@ -75,8 +85,6 @@ const SearchResultsList = (props) => {
             </li>
           );
         });
-        break;
-      case "options":
         break;
       default:
         break;

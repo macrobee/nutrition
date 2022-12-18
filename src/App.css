@@ -15,10 +15,27 @@ p, h1, h2, h3, h4, li, ul{
 }
 .App {
 }
-
+.main-content{
+  height: 85vh;
+}
 .container {
   width: 50%;
 }
 input::placeholder{
   font-family: 'Roboto Mono', monospace;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track{
+  background-color:var(--background-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 4px;
+transition: 0.5s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: white;
 }

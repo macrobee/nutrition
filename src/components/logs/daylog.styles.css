@@ -1,6 +1,9 @@
 .daylog{
     border: 1px solid var(--main-color);
     padding: 20px;
+    /* height: 165px; */
+    overflow: hidden;
+    margin-top: 20px;
 }
 .day-totals{
     display: grid;
@@ -24,4 +27,9 @@
 }
 .search-container, .results-display{
     border-bottom: 1px solid var(--main-color);
+}
+.log-buttons-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

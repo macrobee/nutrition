@@ -2,6 +2,7 @@ import { useContext } from "react";
 import uniqid from "uniqid";
 
 import { ReactComponent as Trash } from "../../assets/trash.svg";
+import { ActiveLogContext } from "../../contexts/activelog.context";
 
 import { LoggedDataContext } from "../../contexts/loggeddata.context";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
@@ -9,30 +10,34 @@ import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
 const SavedResultsDisplay = (props) => {
   const { title, searchType, logId } = props;
   const { entryList, editExistingEntry } = useContext(LoggedDataContext);
+  const {activeLog, setActiveLog} = useContext(ActiveLogContext);
 
-  const currentEntry = entryList.find((entry) => entry.id === logId);
+  // const activeLog = entryList.find((entry) => entry.id === logId);
+  
   const loggedItemsInEntry = entryList.find((entry) => entry.id === logId)[searchType];
 
+  const updateEntry = async (newData) => {
+    const editedEntry = {
+      ...activeLog,
+      [searchType]: newData,
+    };
+    await editExistingEntry(editedEntry);
+    await setActiveLog(editedEntry);
+  }
   const handleDeleteButtonClick = (e) => {
     const itemToDeleteTitle = e.target.getAttribute("id");
-    console.log(itemToDeleteTitle);
     const filteredLoggedItemsInEntry = loggedItemsInEntry.filter(
       (item) => item.title !== itemToDeleteTitle
     );
-    const editedEntry = {
-      ...currentEntry,
-      [searchType]: filteredLoggedItemsInEntry,
-    };
-    editExistingEntry(editedEntry);
+    
+    updateEntry(filteredLoggedItemsInEntry);
   };
 
   return (
     <div>
       <h4>{title}</h4>
       <ul>
-        {console.log(loggedItemsInEntry)}
         {loggedItemsInEntry.map((item) => {
-          console.log(item.title);
           const id = uniqid();
           return (<li key={id}>
             <span>&#x2022;</span>

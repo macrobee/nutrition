@@ -12,11 +12,11 @@ import DayLog from "./daylog";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
 import './logscontainer.styles.css';
 
+
+
 const LogsContainer = () => {
   const { entryList, addNewEntryToList } = useContext(LoggedDataContext);
   const { currentDateStr } = useContext(DateContext);
-  const { activeLog, setActiveLog} = useContext(ActiveLogContext);
-
 
   const handleButtonClick = () => {
     const newEntry = {
@@ -28,7 +28,7 @@ const LogsContainer = () => {
     addNewEntryToList(newEntry);
   };
   return (
-    <div className="container">
+    <div className="logs-container">
       <Button buttonType={BUTTON_TYPE_CLASSES.add} onClick={handleButtonClick} id="new-log-button">
         Create new log
       </Button>

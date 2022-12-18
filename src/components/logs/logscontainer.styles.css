@@ -2,8 +2,12 @@
 input[type="date"]{
     height: 1rem;
 }
-.container{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.logs-container{
+    /* display: flex;
+    flex-direction: column; */
+    /* gap: 20px; */
+    overflow-y: scroll;
+    /* width: clamp(200px, 50%, 400px); */
+    width: max(45%, 300px);
+    height: 85vh;
 }
