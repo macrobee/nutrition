@@ -13,7 +13,7 @@ import SavedResultsDisplay from "./savedresultsdisplay";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
 import { Input } from "../input/input.styles";
 import { ClickableP } from "../styles/clickable.styles";
-import "./daylog.styles.css";
+import "../styles/daylog.styles.css";
 
 const DayLog = (props) => {
   const { id, date } = props;
@@ -99,23 +99,25 @@ const DayLog = (props) => {
           </div>
       </div>)}
       {thisDayEntry.id === activeLog.id ? (
-        <div className="daylog-actions-container">
-          <ClickableP onClick={handleExpandSearchClick}>
-            {searchBarsVisible ? "Close" : "Open "} search options{" "}
-            {searchBarsVisible ? "  - " : " +"}
-          </ClickableP>
-          {searchBarsVisible && (
-            <div className="search-container">
-              <SearchExercise />
-              <SearchFoodNutrition />
-              {/* <SearchFoodOptions /> */}
-              {searchResults ? (
-                <SearchResultsList logId={id} />
-              ) : (
-                <span>Search results</span>
-              )}
-            </div>
-          )}
+        <div className="daylog-body-container">
+          <div className="daylog-actions-container">
+            <ClickableP onClick={handleExpandSearchClick}>
+              {searchBarsVisible ? "Close" : "Open "} search options{" "}
+              {searchBarsVisible ? "  - " : " +"}
+            </ClickableP>
+            {searchBarsVisible && (
+              <div className="search-container">
+                <SearchExercise />
+                <SearchFoodNutrition />
+                {/* <SearchFoodOptions /> */}
+                {searchResults ? (
+                  <SearchResultsList logId={id} />
+                ) : (
+                  <span>Search results</span>
+                )}
+              </div>
+            )}
+          </div>
           <div className="results-display">
             <SavedResultsDisplay
               title="Food intake"

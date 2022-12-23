@@ -33,3 +33,6 @@
     justify-content: space-between;
     align-items: center;
 }
+.daylog-actions-container{
+    padding-bottom: 20px;
+}

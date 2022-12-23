@@ -1,7 +1,13 @@
 import { useContext } from "react";
 import uniqid from "uniqid";
-import { ActiveLogContext } from "../../contexts/activelog.context";
+import {
+  summarizeNutritionalData,
+  EMPTY_NUTRITION_OBJECT,
+} from "./functions/summarizenutritionaldata";
+import { sumCaloriesFromList } from "./functions/totalcaloriesfromlist";
 
+import { ActiveLogContext } from "../../contexts/activelog.context";
+import { DateContext } from "../../contexts/date.context";
 import { LoggedDataContext } from "../../contexts/loggeddata.context";
 import { UserContext } from "../../contexts/userInformation.context";
 
@@ -13,59 +19,72 @@ const SummaryContainer = () => {
   const { entryList } = useContext(LoggedDataContext);
   const { userCaloricGoals, userMacroGoals } = useContext(UserContext);
   const { activeLog } = useContext(ActiveLogContext);
+  const { getDateStrFromDateObj } = useContext(DateContext);
 
-  console.log(activeLog);
-
+  let activeDateRange = null;
+  if (entryList.length) {
+    //sets active date range as 7 days from most recent entry
+    const start = entryList[0].dateObj;
+    const end = new Date(start - 604800000); //need date 7 days before start date
+    activeDateRange = {
+      start,
+      end,
+    };
+  }
   const { date, exercise, food } = activeLog;
-  const intakeTotals = food
-    .map((item) => item.nutrition)
-    .reduce(
-      (acc, cur) => {
-        let {
-          carbohydrates,
-          cholesterol,
-          fat,
-          fiber,
-          potassium,
-          protein,
-          saturatedFat,
-          sodium,
-          sugars,
-        } = cur;
-        return {
-          carbohydrates: carbohydrates + acc.carbohydrates,
-          cholesterol: cholesterol + acc.cholesterol,
-          fat: fat + acc.fat,
-          fiber: fiber + acc.fiber,
-          potassium: potassium + acc.potassium,
-          protein: protein + acc.protein,
-          saturatedFat: saturatedFat + acc.saturatedFat,
-          sodium: sodium + acc.sodium,
-          sugars: sugars + acc.sugars,
-        };
-      },
-      {
-        carbohydrates: 0,
-        cholesterol: 0,
-        fat: 0,
-        fiber: 0,
-        potassium: 0,
-        protein: 0,
-        saturatedFat: 0,
-        sodium: 0,
-        sugars: 0,
-      }
-    );
-  const totalCarbsConsumed = intakeTotals.carbohydrates;
-  const totalFatsConsumed = intakeTotals.fat;
-  const totalProteinConsumed = intakeTotals.protein;
+  const intakeTotals = summarizeNutritionalData(
+    food.map((item) => item.nutrition)
+  ); //returns intake totals for active log
 
-  const totalCaloriesBurned = exercise
-    .map((item) => item.calories)
-    .reduce((acc, cur) => acc + cur, 0);
-  const totalCaloriesConsumed = food
-    .map((item) => item.calories)
-    .reduce((acc, cur) => acc + cur, 0);
+  let totalCarbsConsumed;
+  let totalFatsConsumed;
+  let totalProteinConsumed;
+  
+  let totalCaloriesBurned;
+  let totalCaloriesConsumed;
+
+  //case if entry list is there and no log selected
+    //assigns total numbers based on **full entry list**
+  if (entryList.length && activeLog.id === "none") {
+    const intakeTotalList = entryList.map((entry) => {
+      if (entry.food.length) {
+        const value = summarizeNutritionalData(
+          entry.food.map((item) => item.nutrition)
+        );
+        return value;
+      } else {
+        return EMPTY_NUTRITION_OBJECT;
+      }
+    }); //creates array of intake totals for all entries
+
+    const intakeTotalsForActiveDateRange =
+      summarizeNutritionalData(intakeTotalList);
+
+    totalCarbsConsumed = intakeTotalsForActiveDateRange.carbohydrates;
+    totalFatsConsumed = intakeTotalsForActiveDateRange.fat;
+    totalProteinConsumed = intakeTotalsForActiveDateRange.protein;
+
+    totalCaloriesConsumed = sumCaloriesFromList(
+      entryList.map((entry) => {
+        const entryFoodList = entry.food;
+        return { calories: sumCaloriesFromList(entryFoodList) };
+      })
+    );
+    totalCaloriesBurned = sumCaloriesFromList(
+      entryList.map((entry) => {
+        const entryExerciseList = entry.exercise;
+        return { calories: sumCaloriesFromList(entryExerciseList) };
+      })
+    );
+
+  } else {//assigns total numbers based on active log
+    totalCarbsConsumed = intakeTotals.carbohydrates;
+    totalFatsConsumed = intakeTotals.fat;
+    totalProteinConsumed = intakeTotals.protein;
+
+    totalCaloriesBurned = sumCaloriesFromList(exercise);
+    totalCaloriesConsumed = sumCaloriesFromList(food);
+  }
 
   // const mostRecent7Entries = entryList.filter((entry)=>{entry.date < today && entry.date > earlierDate})
 
@@ -73,7 +92,7 @@ const SummaryContainer = () => {
   //
   const carbGramsGoal =
     (userMacroGoals.carbs * userCaloricGoals.calories) / 400;
-  const fatGramsGoal = (userMacroGoals.fats * userCaloricGoals.calories) / 400;
+  const fatGramsGoal = (userMacroGoals.fats * userCaloricGoals.calories) / 900;
   const proteinGramsGoal =
     (userMacroGoals.protein * userCaloricGoals.calories) / 400;
 
@@ -82,12 +101,13 @@ const SummaryContainer = () => {
       <div className="user-goal-container">
         BMR: {userCaloricGoals.calories} calories per day <br />
         <h4>Current macro goals:</h4> {userMacroGoals.carbs}% carbs,{" "}
-        {userMacroGoals.fats}% fats, {userMacroGoals.protein}% protein <br />
-        ({Math.round(carbGramsGoal)}g carbs, {Math.round(fatGramsGoal)}g fats, {Math.round(proteinGramsGoal)}g protein)
+        {userMacroGoals.fats}% fats, {userMacroGoals.protein}% protein <br />(
+        {Math.round(carbGramsGoal)}g carbs, {Math.round(fatGramsGoal)}g fats,{" "}
+        {Math.round(proteinGramsGoal)}g protein)
       </div>
 
       <div className="macro-intake-bar-container">
-        Macro intake for {date} <br />
+        Macro intake for {date === "0/0/0" ? `the past 7 days` : date} <br />
         Carbs: ({Math.round(totalCarbsConsumed)}g)
         <ProgressBar goal={carbGramsGoal} current={totalCarbsConsumed} />
         Fats: ({Math.round(totalFatsConsumed)}g)
@@ -102,11 +122,11 @@ const SummaryContainer = () => {
           {Math.round(userCaloricGoals.calories + totalCaloriesBurned)}
         </p>
         <ProgressBar
-        goal={userCaloricGoals.calories + totalCaloriesBurned}
-        current={totalCaloriesConsumed}
-      />
+          goal={userCaloricGoals.calories + totalCaloriesBurned}
+          current={totalCaloriesConsumed}
+        />
       </div>
-      
+
       <div>Calories graph</div>
       <div>Macros graph</div>
     </div>

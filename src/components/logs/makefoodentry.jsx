@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { getNutrientData } from "./searchfunctions/fooditemsearch";
 import { getFoodNutritionDataFromSearchResults } from "./searchfunctions/parsefooddata";
 
-import { Label } from "./input.styles";
+import { Label } from "../styles/input.styles";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
 import { Input } from "../input/input.styles";
 

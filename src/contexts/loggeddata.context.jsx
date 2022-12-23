@@ -32,6 +32,16 @@ const addEntryData = (currentEntries, entryToModify, fieldToEdit, newData) => {
   return newEntryList;
 };
 
+const sortEntriesByDate = (currentEntries) => {
+  const sortedEntryList = currentEntries.sort((current, next)=>{
+    const currentDate = new Date(current.date);
+    const nextDate = new Date(next.date);
+    return nextDate - currentDate ;
+  });
+  console.log(sortedEntryList);
+  return sortedEntryList;
+}
+
 const defaultEntryList = [
   { id: 1, date: "2022-12-08", exercise: [], food: [] },
   { id: 2, date: "2022-12-08", exercise: [], food: [] },
@@ -58,7 +68,9 @@ export const LoggedDataContext = createContext({
 
 export const LoggedDataProvider = ({ children }) => {
   const editExistingEntry = (editedEntry) => {
-    setEntryList(editEntry(entryList, editedEntry));
+    const newEntryList = editEntry(entryList, editedEntry);
+    const sortedEntryList = sortEntriesByDate(newEntryList);
+    setEntryList(sortedEntryList);
   };
 
   const addNewEntryToList = (newEntry) => {

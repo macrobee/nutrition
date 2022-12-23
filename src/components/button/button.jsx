@@ -1,4 +1,4 @@
-import { BaseButton, AddButton, DeleteButton } from "../logs/buttons.styles";
+import { BaseButton, AddButton, DeleteButton } from "../styles/buttons.styles";
 
 export const BUTTON_TYPE_CLASSES = {
   base: "base",

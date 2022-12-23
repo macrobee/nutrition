@@ -3,10 +3,10 @@ import { useState, useContext } from "react";
 import { getExerciseData } from "./searchfunctions/exercisesearch";
 import { getExerciseDataFromSearchResults } from "./searchfunctions/parseexercisedata";
 
-import { Label } from "./input.styles";
+import { Label } from "../styles/input.styles";
 import Button, {BUTTON_TYPE_CLASSES} from "../button/button";
 import { Input } from "../input/input.styles";
-import './searchexercise.styles.css';
+import '../styles/searchexercise.styles.css';
 
 
 import { SearchResultsContext } from "../../contexts/searchresults.context";
