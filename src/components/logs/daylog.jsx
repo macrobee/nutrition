@@ -53,8 +53,9 @@ const DayLog = (props) => {
   );
 
   const handleDateChange = (e) => {
+    const newDate = new Date(e.target.value);
     setEntryDate(e.target.value);
-    editExistingEntry({...thisDayEntry, date: e.target.value})
+    editExistingEntry({...thisDayEntry, date: e.target.value, dateObj: newDate})
   };
 
   const handleDelete = () => {
