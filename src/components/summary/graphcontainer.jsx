@@ -1,5 +1,6 @@
 import { GraphContainer } from "../styles/graphcontainer.styles";
 import { ResponsiveBar } from "@nivo/bar";
+
 const legends = [
   {
     dataFrom: "keys",
@@ -49,6 +50,18 @@ const theme = {
       stroke: "#41784D",
     },
   },
+  tooltip: {
+    "container": {
+        "background": "#0D0E14",
+        "color": "#81EF9A",
+        "fontSize": 12
+    },
+    "basic": {},
+    "chip": {},
+    "table": {},
+    "tableCell": {},
+    "tableCellValue": {}
+}
 };
 const colors = {
   carbsColor: "#81EF9A",
@@ -141,7 +154,7 @@ const GraphContainerDiv = ({ data }) => {
         labelSkipHeight={12}
         labelTextColor={{
           from: "color",
-          modifiers: [["darker", 1.6]],
+          modifiers: [["darker", 3.0]],
         }}
         legends={legends}
         role="application"
