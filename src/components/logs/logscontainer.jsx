@@ -21,11 +21,9 @@ const LogsContainer = () => {
 
     if (entryList.length){ //if entryList contains entries, give new entry a new date
       newEntryDateObj = new Date(entryList[0].date); //this is giving a date 1 day before most recent date for some reason
-      console.log(entryList[0]);
-      console.log(newEntryDateObj);
+
       newEntryDateObj.setDate(newEntryDateObj.getDate() + 2); 
       newEntryDateStr = getDateStrFromDateObj(newEntryDateObj);
-      console.log(newEntryDateStr);
     }
 
     const newEntry = {

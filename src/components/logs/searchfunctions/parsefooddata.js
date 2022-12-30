@@ -1,7 +1,6 @@
 export const getFoodNutritionDataFromSearchResults = (results) => {
   if (results.length > 0) {
     const summarizedList = results.map((result) => {
-      console.log(result);
       const {
         food_name,
         serving_qty,
@@ -35,7 +34,6 @@ export const getFoodNutritionDataFromSearchResults = (results) => {
         },
       };
     });
-    console.log(summarizedList);
     return summarizedList;
   } else {
     return;

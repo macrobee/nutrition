@@ -105,6 +105,18 @@ const colors = {
 //       id: "lines",
 //     },
 //   ]}
+// colorBy={({ id }) => {
+//   switch (id) {
+//     case "carbs":
+//       return colors.carbsColor;
+//     case "fats":
+//       return colors.fatsColor;
+//     case "protein":
+//       return colors.proteinColor;
+//     default:
+//       return "#FFFFFF";
+//   }
+// }}
 const GraphContainerDiv = ({ data }) => {
   return (
     <GraphContainer>
@@ -112,21 +124,10 @@ const GraphContainerDiv = ({ data }) => {
       <ResponsiveBar
         data={data}
         theme={theme}
-        colorBy={({ id }) => {
-          switch (id) {
-            case "carbs":
-              return colors.carbsColor;
-            case "fats":
-              return colors.fatsColor;
-            case "protein":
-              return colors.proteinColor;
-            default:
-              return "#FFFFFF";
-          }
-        }}
+        
         keys={["carbs", "fats", "protein"]}
         indexBy="date"
-        margin={{ top: 10, right: 130, bottom: 50, left: 60 }}
+        margin={{ top: 10, right: 100, bottom: 50, left: 60 }}
         padding={0.3}
         borderColor={{
           from: "color",

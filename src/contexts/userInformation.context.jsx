@@ -34,21 +34,26 @@ const defaultPersonInfo = {
   height_cm: 168,
   age: 27,
 };
-const defaultPerson = {
-  personName: "User1",
+
+export const blankPerson = {
+  personName: null,
+  photoUrl: `https://upload.wikimedia.org/wikipedia/commons/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg`,
+} 
+export const samplePerson = {
+  personName: "Alex",
   photoUrl: `https://upload.wikimedia.org/wikipedia/commons/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg`,
 };
 
 const defaultMacroGoals = {
-  carbs: 50,
-  fats: 30,
-  protein: 20,
+  carbs: 65,
+  fats: 24,
+  protein: 11,
 };
 
 export const UserContext = createContext({
   userPhysicalInfo: {},
   setUserPhysicalInfo: () => null,
-  user: "",
+  user: {},
   setUser: () => null,
   userMacroGoals: {},
   userCaloricGoals: {},
@@ -58,7 +63,7 @@ export const UserContext = createContext({
 
 export const UserProvider = ({ children }) => {
   const [userPhysicalInfo, setUserPhysicalInfo] = useState(defaultPersonInfo);
-  const [user, setUser] = useState(defaultPerson);
+  const [user, setUser] = useState(blankPerson);
   const [userMacroGoals, setUserMacroGoals] = useState(defaultMacroGoals);
   const [userCaloricGoals, setUserCaloricGoals] = useState({});
   const [profileIsOpen, setProfileIsOpen] = useState(false);

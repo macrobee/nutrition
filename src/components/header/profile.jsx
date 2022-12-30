@@ -22,8 +22,8 @@ const Profile = () => {
     ...userMacroGoals,
     name: user.personName,
     gender: userPhysicalInfo.gender,
-    weight: userPhysicalInfo.weight_kg,
-    height: userPhysicalInfo.height_cm,
+    weight_kg: userPhysicalInfo.weight_kg,
+    height_cm: userPhysicalInfo.height_cm,
     age: userPhysicalInfo.age,
   });
   const [proteinPercent, setProteinPercent] = useState(userMacroGoals.protein);
@@ -36,20 +36,18 @@ const Profile = () => {
   }, [inputFields]);
 
   const handleChange = (e) => {
-    console.log(inputFields);
     const { name, value } = e.target;
-    setInputFields({ ...inputFields, [name]: value,  });
+    setInputFields({ ...inputFields, [name]: value,});
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputFields);
-    console.log(user);
+
     setUser({ ...user, personName: inputFields.name });
     setUserPhysicalInfo({
       gender: inputFields.gender,
-      weight_kg: inputFields.weight,
-      height_cm: inputFields.height,
+      weight_kg: inputFields.weight_kg,
+      height_cm: inputFields.height_cm,
       age: inputFields.age,
     });
     setUserMacroGoals({
@@ -95,7 +93,7 @@ const Profile = () => {
         />
       </div>
       <div className="weight-input">
-        <label htmlFor="weight_kg" placeholder={userPhysicalInfo.weight_kg}>
+        <label htmlFor="weight_kg" >
           Weight (kg):
         </label>
         <Input
@@ -103,12 +101,12 @@ const Profile = () => {
           name="weight_kg"
           min="1"
           max="300"
-          placeholder="60"
+          placeholder={userPhysicalInfo.weight_kg}
           onChange={handleChange}
         />
       </div>
       <div className="height-input">
-        <label htmlFor="height_cm" placeholder={userPhysicalInfo.height_cm}>
+        <label htmlFor="height_cm" >
           Height (cm):{" "}
         </label>
         <Input
@@ -116,7 +114,7 @@ const Profile = () => {
           min="50"
           max="250"
           name="height_cm"
-          placeholder="160"
+          placeholder={userPhysicalInfo.height_cm}
           onChange={handleChange}
         />
       </div>

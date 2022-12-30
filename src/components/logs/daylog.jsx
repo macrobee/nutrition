@@ -22,7 +22,6 @@ const DayLog = (props) => {
   const { activeLog, getLogData, setActiveLog, resetActiveLog } = useContext(ActiveLogContext);
 
   const [entryDate, setEntryDate] = useState(date);
-  const [searchBarsVisible, setSearchBarsVisible] = useState(false);
 
   const thisDayEntry = getLogData(id, entryList);
 
@@ -62,10 +61,10 @@ const DayLog = (props) => {
     deleteExistingEntry({ id }); //modify to take the whole data object later
   };
 
-  const handleExpandSearchClick = () => {
-    setSearchBarsVisible(!searchBarsVisible);
-    setSearchResults([]);
-  };
+  // const handleExpandSearchClick = () => {
+  //   setSearchBarsVisible(!searchBarsVisible);
+  //   setSearchResults([]);
+  // };
 
   const handleExpandLogClick = (e) => {
     setActiveLog(thisDayEntry);
@@ -101,12 +100,12 @@ const DayLog = (props) => {
       </div>)}
       {thisDayEntry.id === activeLog.id ? (
         <div className="daylog-body-container">
-          <div className="daylog-actions-container">
-            <ClickableP onClick={handleExpandSearchClick}>
+          {/* <div className="daylog-actions-container"> */}
+            {/* <ClickableP onClick={handleExpandSearchClick}>
               {searchBarsVisible ? "Close" : "Open "} search options{" "}
               {searchBarsVisible ? "  - " : " +"}
             </ClickableP>
-            {searchBarsVisible && (
+            {searchBarsVisible && ( */}
               <div className="search-container">
                 <SearchExercise />
                 <SearchFoodNutrition />
@@ -117,8 +116,8 @@ const DayLog = (props) => {
                   <span>Search results</span>
                 )}
               </div>
-            )}
-          </div>
+            {/* )} */}
+          {/* </div> */}
           <div className="results-display">
             <SavedResultsDisplay
               title="Food intake"

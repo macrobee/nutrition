@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const editEntry = (currentEntries, entryToEdit) => {
   const newEntryList = currentEntries.map((entry) =>
@@ -42,12 +42,6 @@ const sortEntriesByDate = (currentEntries) => {
   return sortedEntryList;
 }
 
-const defaultEntryList = [
-  { id: 1, date: "2022-12-08", exercise: [], food: [] },
-  { id: 2, date: "2022-12-08", exercise: [], food: [] },
-  { id: 3, date: "2022-12-07", exercise: [], food: [] },
-];
-
 export const LoggedDataContext = createContext({
   entryList: [],
   setEntryList: () => null,
@@ -73,6 +67,7 @@ export const LoggedDataProvider = ({ children }) => {
     setEntryList(sortedEntryList);
   };
 
+
   const addNewEntryToList = (newEntry) => {
     setEntryList(createNewEntry(entryList, newEntry));
   };
@@ -94,7 +89,9 @@ export const LoggedDataProvider = ({ children }) => {
     const savedData = JSON.parse(localStorage.getItem("data"));
     return savedData;
   };
-  const [entryList, setEntryList] = useState({});
+
+  const savedEntryList = getDataFromLocalStorage();
+  const [entryList, setEntryList] = useState(savedEntryList);
 
   const value = {
     entryList,
@@ -105,6 +102,8 @@ export const LoggedDataProvider = ({ children }) => {
     addDataToEntry,
     saveToLocalStorage,
     getDataFromLocalStorage,
+    savedEntryList,
+
   };
 
   return (

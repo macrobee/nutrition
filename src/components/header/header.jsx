@@ -6,7 +6,7 @@ import Profile from "./profile";
 import { StyledHeader, UserIcon, Image } from "./header.styles";
 
 const Header = () => {
-  const { user, profileIsOpen, setProfileIsOpen } = useContext(UserContext);
+  const { user, profileIsOpen, setProfileIsOpen, userPhysicalInfo } = useContext(UserContext);
   const { personName, photoUrl } = user;
 
   // useEffect(() => {
@@ -14,6 +14,7 @@ const Header = () => {
   // }, [profileIsOpen])
 
   const toggleProfile = () => {
+    console.log(userPhysicalInfo);
     setProfileIsOpen(!profileIsOpen);
   };
 

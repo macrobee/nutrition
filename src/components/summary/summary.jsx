@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import uniqid from "uniqid";
 
 import {
   summarizeNutritionalData,
@@ -13,29 +12,48 @@ import { LoggedDataContext } from "../../contexts/loggeddata.context";
 import { UserContext } from "../../contexts/userInformation.context";
 
 import ProgressBar from "./progressbar";
-import { data } from "./data";
 import GraphContainerDiv from "./graphcontainer";
 
-import { GraphContainer } from "../styles/graphcontainer.styles";
 import "./summary.styles.css";
 
 const SummaryContainer = () => {
   const { entryList } = useContext(LoggedDataContext);
   const { userCaloricGoals, userMacroGoals } = useContext(UserContext);
   const { activeLog } = useContext(ActiveLogContext);
-  const { getDateStrFromDateObj } = useContext(DateContext);
 
   let activeDateRange = null;
-  let daysInActiveDateRange = 0;
+  let entryInActiveDateRangeCount = 1;
+  let summarizedEntriesInActiveDateRange = [];
   if (entryList.length) {
     //sets active date range as 7 days from most recent entry
     const end = entryList[0].dateObj;
     const start = new Date(end - 604800000); //need date 7 days before start date
+    
     activeDateRange = {
       start,
       end,
     };
-    daysInActiveDateRange = (end - start) / 86400000;
+    const entriesInActiveDateRange = entryList.filter((entry) => {
+      return (
+        entry.dateObj - activeDateRange.start > 0 &&
+        entry.dateObj - activeDateRange.end <= 0
+      );
+    });
+    entryInActiveDateRangeCount = entriesInActiveDateRange.length;
+    summarizedEntriesInActiveDateRange = entriesInActiveDateRange.map(
+      (entry) => {
+        const { date, food } = entry;
+        const nutritionList = food.map((item) => item.nutrition);
+        const foodTotalsForEntry = summarizeNutritionalData(nutritionList);
+        const monthAndDay = date.slice(5);
+        return {
+          date: monthAndDay,
+          carbs: Math.round(foodTotalsForEntry.carbohydrates * 4),
+          fats: Math.round(foodTotalsForEntry.fat * 9),
+          protein: Math.round(foodTotalsForEntry.protein * 4),
+        };
+      }
+    );
   }
   const { date, exercise, food } = activeLog;
   const intakeTotals = summarizeNutritionalData(
@@ -53,7 +71,6 @@ const SummaryContainer = () => {
   //case if entry list is there and no log selected
   //assigns total numbers based on **full entry list**
   if (entryList.length && activeLog.id === "none") {
-    console.log("start comparison");
     const entriesInActiveDateRange = entryList.filter((entry) => {
       return (
         entry.dateObj - activeDateRange.start > 0 &&
@@ -91,7 +108,8 @@ const SummaryContainer = () => {
       })
     );
     calorieTotalGoal =
-      userCaloricGoals.calories * daysInActiveDateRange + totalCaloriesBurned;
+      userCaloricGoals.calories * entryInActiveDateRangeCount +
+      totalCaloriesBurned;
   } else {
     //assigns total numbers based on active log
     totalCarbsConsumed = intakeTotals.carbohydrates;
@@ -103,11 +121,19 @@ const SummaryContainer = () => {
     calorieTotalGoal = userCaloricGoals.calories + totalCaloriesBurned;
   }
 
-  const carbGramsGoal =
-    (userMacroGoals.carbs * userCaloricGoals.calories) / 400;
-  const fatGramsGoal = (userMacroGoals.fats * userCaloricGoals.calories) / 900;
-  const proteinGramsGoal =
-    (userMacroGoals.protein * userCaloricGoals.calories) / 400;
+  let carbGramsGoal;
+  let fatGramsGoal;
+  let proteinGramsGoal;
+
+  carbGramsGoal = (userMacroGoals.carbs * userCaloricGoals.calories) / 400;
+  fatGramsGoal = (userMacroGoals.fats * userCaloricGoals.calories) / 900;
+  proteinGramsGoal = (userMacroGoals.protein * userCaloricGoals.calories) / 400;
+
+  if (activeLog.id === "none") {
+    carbGramsGoal = carbGramsGoal * 4;
+    fatGramsGoal = fatGramsGoal * 9;
+    proteinGramsGoal = proteinGramsGoal * 4;
+  }
 
   return (
     <div className="summary-container">
@@ -120,7 +146,11 @@ const SummaryContainer = () => {
       </div>
 
       <div className="macro-intake-bar-container">
-        Macro intake for {date === "0/0/0" ? `the past 7 days` : date} <br />
+        Macro intake for{" "}
+        {date === "0/0/0"
+          ? `the past ${entryInActiveDateRangeCount} days`
+          : date}{" "}
+        <br />
         Carbs: ({Math.round(totalCarbsConsumed)}g)
         <ProgressBar goal={carbGramsGoal} current={totalCarbsConsumed} />
         Fats: ({Math.round(totalFatsConsumed)}g)
@@ -135,7 +165,7 @@ const SummaryContainer = () => {
         </p>
         <ProgressBar goal={calorieTotalGoal} current={totalCaloriesConsumed} />
       </div>
-      <GraphContainerDiv data={data} />
+      <GraphContainerDiv data={summarizedEntriesInActiveDateRange} />
     </div>
   );
 };

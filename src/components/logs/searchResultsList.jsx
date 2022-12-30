@@ -10,11 +10,9 @@ import "../styles/searchresultslist.styles.css";
 
 const SearchResultsList = (props) => {
   const { searchResults, searchType } = useContext(SearchResultsContext);
-  const { entryList, editExistingEntry } =  useContext(LoggedDataContext);
-  const {setActiveLog, activeLog, getLogData} = useContext(ActiveLogContext);
+  const { editExistingEntry } =  useContext(LoggedDataContext);
+  const {setActiveLog, activeLog} = useContext(ActiveLogContext);
 
-  const { logId } = props;
-  const currentEntry = getLogData(logId, entryList);
 
   let optionsListItems = null;
 
@@ -26,7 +24,7 @@ const SearchResultsList = (props) => {
     await editExistingEntry(editedEntry);
     // const updatedCurrentEntry = entryList.find((entry) => entry.id === logId);
     await setActiveLog(editedEntry);
-    console.log(activeLog)
+    // console.log(activeLog)
   }
   const handleAddButtonClick = (e) => {
     const title = e.currentTarget.getAttribute("title"); //name of thing to add
