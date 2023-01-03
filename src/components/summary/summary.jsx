@@ -7,7 +7,6 @@ import {
 import { sumCaloriesFromList } from "./functions/totalcaloriesfromlist";
 
 import { ActiveLogContext } from "../../contexts/activelog.context";
-import { DateContext } from "../../contexts/date.context";
 import { LoggedDataContext } from "../../contexts/loggeddata.context";
 import { UserContext } from "../../contexts/userInformation.context";
 

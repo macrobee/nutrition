@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../contexts/userInformation.context";
 
 import Profile from "./profile";
@@ -22,8 +22,7 @@ const Header = () => {
     <StyledHeader>
       <h1>Welcome, {personName}</h1>
       <UserIcon onClick={toggleProfile} className="icon">
-        {personName}
-        <Image src={photoUrl} alt={personName} />
+        Edit profile information
       </UserIcon>
       {profileIsOpen && <Profile />}
     </StyledHeader>

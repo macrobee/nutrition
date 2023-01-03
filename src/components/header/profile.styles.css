@@ -10,12 +10,12 @@
 }
 
 .icon {
-  transition: 1s;
+  transition: 0.3s;
   transition-timing-function: ease-in-out;
   cursor: pointer;
 }
 .icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 .macro-input-container {
   display: flex;
