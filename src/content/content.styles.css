@@ -1,7 +1,12 @@
-.main-content{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
-    padding: 20px;
+.main-content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px;
+}
+@media (max-width: 800px) {
+  .main-content {
+    gap: 20px;
+  }
 }
