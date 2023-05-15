@@ -2,6 +2,10 @@
 
 This is the nutrition tracker I made while learning React Hooks and React Context.
 
+## Live demo
+
+Live demo of the project can be found [here](https://macrobeenutrition.netlify.app/) 
+
 ## Technology used
 
 - languages: HTML, CSS, Javascript
